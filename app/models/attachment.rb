@@ -236,7 +236,7 @@ class Attachment < ActiveRecord::Base
   end
 
   def is_text?
-    Redmine::MimeType.is_type?('text', filename)
+    Redmine::MimeType.is_type?('text', filename) || self.filename =~ /\.(log|json)$/i
   end
 
   def is_image?
