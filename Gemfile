@@ -15,6 +15,8 @@ gem "actionpack-xml_parser"
 gem "roadie-rails", "~> 1.1.1"
 gem "roadie", "~> 3.2.1"
 gem "mimemagic"
+gem "unicorn"
+gem "rufus-scheduler"
 
 gem "nokogiri", (RUBY_VERSION >= "2.1" ? "~> 1.7.2" : "~> 1.6.8")
 gem "i18n", "~> 0.7.0"
