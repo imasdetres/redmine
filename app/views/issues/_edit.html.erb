@@ -2,6 +2,7 @@
     <%= error_messages_for 'issue', 'time_entry' %>
     <%= render :partial => 'conflict' if @conflict %>
     <div class="box">
+    <div id="edit_issue" style="display:none;">
     <% if @issue.attributes_editable? %>
         <fieldset class="tabular"><legend><%= l(:label_change_properties) %></legend>
         <div id="all_attributes">
@@ -27,6 +28,7 @@
         <% end %>
     </fieldset>
     <% end %>
+    </div>
     <% if @issue.notes_addable? %>
       <fieldset><legend><%= l(:field_notes) %></legend>
       <%= f.text_area :notes, :cols => 60, :rows => 10, :class => 'wiki-edit', :no_label => true %>

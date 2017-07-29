@@ -3,4 +3,9 @@
 <%= render :partial => 'edit' %>
 <% content_for :header_tags do %>
     <%= robot_exclusion_tag %>
+    <script>
+    //<![CDATA[
+    $(window).load(function(){ $("#edit_issue").show(); $("#cancel_edit_issue").show(); return false; });
+    //]]>
+    </script>
 <% end %>

@@ -117,6 +117,7 @@ end %>
 <% end %>
 
 </div>
+<%= render :partial => 'action_menu' %>
 
 <% if @changesets.present? %>
 <div id="issue-changesets">
@@ -132,14 +133,13 @@ end %>
 </div>
 <% end %>
 
-
-<div style="clear: both;"></div>
-<%= render :partial => 'action_menu' %>
-
 <div style="clear: both;"></div>
 <% if @issue.editable? %>
-  <div id="update" style="display:none;">
-  <h3><%= l(:button_edit) %></h3>
+  <div id="update">
+  <h3 id="edit_issue_header" style="display:none;"><%= l(:button_edit) %></h3>
+  <h4 id="add_notes_header"><%= l(:button_add_notes) %>
+    <%= link_to l(:button_edit), edit_issue_path(@issue), :onclick => 'showAndScrollTo("edit_issue", "issue_notes"); $("#cancel_edit_issue").show(); $("#edit_issue_header").show(); $("#add_notes_header").hide(); return false;', :class => 'icon icon-edit', :accesskey => accesskey(:edit) if @issue.editable? && User.current.allowed_to?(:edit_issues, @project) %>
+  </h4>
   <%= render :partial => 'edit' %>
   </div>
 <% end %>
