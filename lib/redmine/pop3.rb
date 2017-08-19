@@ -39,24 +39,24 @@ module Redmine
         delete_unprocessed = (pop_options[:delete_unprocessed].to_s == '1')
 
         pop = Net::POP3.APOP(apop).new(host,port)
-        logger.debug "Connecting to #{host}..." if logger && logger.debug?
+        logger.info "Connecting to #{host}..."
         pop.start(pop_options[:username], pop_options[:password]) do |pop_session|
           if pop_session.mails.empty?
             logger.debug "No email to process" if logger && logger.debug?
           else
-            logger.debug "#{pop_session.mails.size} email(s) to process..." if logger && logger.debug?
+            logger.info "#{pop_session.mails.size} email(s) to process..."
             pop_session.each_mail do |msg|
               message = msg.pop
               message_id = (message =~ /^Message-I[dD]: (.*)/ ? $1 : '').strip
               if MailHandler.safe_receive(message, options)
                 msg.delete
-                logger.debug "--> Message #{message_id} processed and deleted from the server" if logger && logger.debug?
+                logger.info "--> Message #{message_id} processed and deleted from the server"
               else
                 if delete_unprocessed
                   msg.delete
-                  logger.debug "--> Message #{message_id} NOT processed and deleted from the server" if logger && logger.debug?
+                  logger.warn "--> Message #{message_id} NOT processed and deleted from the server"
                 else
-                  logger.debug "--> Message #{message_id} NOT processed and left on the server" if logger && logger.debug?
+                  logger.warn "--> Message #{message_id} NOT processed and left on the server"
                 end
               end
             end
