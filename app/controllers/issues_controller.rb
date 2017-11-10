@@ -579,18 +579,15 @@ class IssuesController < ApplicationController
   # Redirects user after a successful issue creation
   def redirect_after_create
     if params[:continue]
-      url_params = {}
-      url_params[:issue] = {:tracker_id => @issue.tracker, :parent_issue_id => @issue.parent_issue_id}.reject {|k,v| v.nil?}
-      url_params[:back_url] = params[:back_url].presence
-
+      attrs = {:tracker_id => @issue.tracker, :parent_issue_id => @issue.parent_issue_id}.reject {|k,v| v.nil?}
       if params[:project_id]
-        redirect_to new_project_issue_path(@issue.project, url_params)
+        redirect_to new_project_issue_path(@issue.project, :issue => attrs)
       else
-        url_params[:issue].merge! :project_id => @issue.project_id
-        redirect_to new_issue_path(url_params)
+        attrs.merge! :project_id => @issue.project_id
+        redirect_to new_issue_path(:issue => attrs)
       end
     else
-      redirect_back_or_default issue_path(@issue)
+      redirect_to issue_path(@issue)
     end
   end
 end
