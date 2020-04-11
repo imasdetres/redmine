@@ -118,7 +118,8 @@ class Mailer < ActionMailer::Base
     @user = user
     @journal = journal
     @journal_details = journal.visible_details
-    @issue_url = url_for(:controller => 'issues', :action => 'show', :id => issue, :anchor => "change-#{journal.id}")
+    @issue_url = url_for(:controller => 'issues', :action => 'show', :id => issue)
+    @change_url = url_for(:controller => 'issues', :action => 'show', :id => issue, :anchor => "change-#{journal.id}")
 
     mail :to => user,
       :subject => s

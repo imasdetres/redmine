@@ -2,6 +2,7 @@
   (<%= l(:field_private_notes) %>)
 <% end %>
 <%= l(:text_issue_updated, :id => link_to("##{@issue.id}", @issue_url), :author => h(@journal.user)).html_safe %>
+[Cambio <%= link_to(h("#{@journal.id}"), @change_url) %>]
 <hr />
 
 <ul class="journal details">
