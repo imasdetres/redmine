@@ -1113,6 +1113,9 @@ $(function () {
     show: {
       delay: 400
     },
+    content: function () {
+      return this.getAttribute("title");
+    },
     position: {
       my: "center bottom-5",
       at: "center top"
