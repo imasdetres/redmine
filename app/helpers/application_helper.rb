@@ -850,6 +850,13 @@ module ApplicationHelper
       text = h(text)
     else
       formatting = Setting.text_formatting
+      text = parse_non_pre_blocks(text, nil, {}, {}) do |text|
+        text.gsub!(/@([A-Za-z0-9_\-@\.]*)/) do |m|
+          name = remove_double_quotes($1)
+          u = User.visible.find_by("LOWER(login) = :s AND type = 'User'", :s => name.downcase)
+          u ? "user##{u.id}": m
+        end
+      end
       text = Redmine::WikiFormatting.to_html(formatting, text, :object => obj, :attribute => attr)
     end
 
