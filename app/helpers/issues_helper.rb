@@ -115,6 +115,7 @@ module IssuesHelper
           "".html_safe
         end
       buttons << link_to_context_menu
+      administrative_relationship = child.custom_field_values.find { |e| e.custom_field.id == 42 }
       s <<
         content_tag(
           'tr',
@@ -127,15 +128,8 @@ module IssuesHelper
                          :class => 'subject') +
              content_tag('td', h(child.status), :class => 'status') +
              content_tag('td', link_to_user(child.assigned_to), :class => 'assigned_to') +
-             content_tag('td', format_date(child.start_date), :class => 'start_date') +
-             content_tag('td', format_date(child.due_date), :class => 'due_date') +
-             content_tag('td',
-                         (if child.disabled_core_fields.include?('done_ratio')
-                            ''
-                          else
-                            progress_bar(child.done_ratio)
-                          end),
-                         :class=> 'done_ratio') +
+             content_tag('td', administrative_relationship ? administrative_relationship.value : "?", :class => 'administrative_relationship') +
+             content_tag('td', "#{child.spent_hours.round(2)} horas", :class => 'spent_hours', :style => 'text-align:right') +
              content_tag('td', buttons, :class => 'buttons'),
           :class => css)
     end
