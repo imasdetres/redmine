@@ -1,5 +1,7 @@
 <%= call_hook(:view_issues_sidebar_issues_bottom) %>
 <%= call_hook(:view_issues_sidebar_planning_bottom) %>
 
+<% if controller.action_name != 'show' %>
 <%= render_sidebar_queries(IssueQuery, @project) %>
+<% end %>
 <%= call_hook(:view_issues_sidebar_queries_bottom) %>
