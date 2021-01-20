@@ -805,6 +805,7 @@ en:
   label_no_issues_in_project: no issues in project
   label_any_open_issues: any open issues
   label_no_open_issues: no open issues
+  label_any_closed_issues: any closed issues
   label_day_plural: days
   label_repository: Repository
   label_repository_new: New repository

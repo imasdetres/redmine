@@ -305,6 +305,7 @@ function toggleOperator(field) {
     case "c":
     case "*o":
     case "!o":
+    case "*c":
       enableValues(field, []);
       break;
     case "><":

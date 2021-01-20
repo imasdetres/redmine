@@ -301,6 +301,7 @@ class Query < ActiveRecord::Base
     "!p"  => :label_no_issues_in_project,
     "*o"  => :label_any_open_issues,
     "!o"  => :label_no_open_issues,
+    "*c"  => :label_any_closed_issues,
   }
 
   class_attribute :operators_by_filter_type
@@ -315,7 +316,7 @@ class Query < ActiveRecord::Base
     :text => [  "~", "!~", "^", "$", "!*", "*" ],
     :integer => [ "=", ">=", "<=", "><", "!*", "*" ],
     :float => [ "=", ">=", "<=", "><", "!*", "*" ],
-    :relation => ["=", "!", "=p", "=!p", "!p", "*o", "!o", "!*", "*"],
+    :relation => ["=", "!", "=p", "=!p", "!p", "*o", "!o", "*c", "!*", "*"],
     :tree => ["=", "~", "!*", "*"]
   }
 
@@ -488,7 +489,7 @@ class Query < ActiveRecord::Base
           # filter requires one or more values
           (values_for(field) and !values_for(field).first.blank?) or
           # filter doesn't require any value
-          ["o", "c", "!*", "*", "nd", "t", "ld", "nw", "w", "lw", "l2w", "nm", "m", "lm", "y", "*o", "!o"].include? operator_for(field)
+          ["o", "c", "!*", "*", "nd", "t", "ld", "nw", "w", "lw", "l2w", "nm", "m", "lm", "y", "*o", "!o", "*c"].include? operator_for(field)
     end if filters
   end
 
